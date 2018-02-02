@@ -1,14 +1,14 @@
 provider "aws" {
-  region     = "eu-central-1"
+  region = "eu-central-1"
 }
 
 resource "aws_key_pair" "auth" {
-  key_name   = "${var.name}"
+  key_name = "${var.name}"
   public_key = "${file(var.public_key_path)}"
 }
 
-resource "aws_instance" "${var.name}" {
-  ami           = "ami-5055cd3f"
+resource "aws_instance" "selenium" {
+  ami = "ami-5055cd3f"
   instance_type = "t2.small"
   key_name = "${aws_key_pair.auth.id}"
 
