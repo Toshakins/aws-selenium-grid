@@ -24,7 +24,7 @@
           }
         },
         {name: "selenium_webdriver",
-         command: "java -jar /home/{{ ansible_user }}/{{ selenium_server_jar }} -port 6666 -role node -hub http://localhost:80",
+         command: "java -Dwebdriver.chrome.driver=/home/{{ ansible_user }}/chromedriver -jar /home/{{ ansible_user }}/{{ selenium_server_jar }} -port 6666 -role node -hub http://localhost:80",
          state: present,
          configuration: {
             autostart=true
