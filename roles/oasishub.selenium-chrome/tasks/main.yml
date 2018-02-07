@@ -1,0 +1,39 @@
+---
+- name: add Google repository key
+  apt_key:
+    url: https://dl.google.com/linux/linux_signing_key.pub
+    state: present
+  become: yes
+
+- name: add Google repo
+  apt_repository:
+    repo: deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main
+    state: present
+  become: yes
+
+- name: install stable Chrome and other dependencies
+  apt:
+    name:
+    - google-chrome-stable
+    - unzip
+    state: latest
+  become: yes
+
+- name: install cron job to update Chrome
+  cron:
+    name: update chrome
+    minute: 27
+    hour: 2
+    job: apt-get update && apt-get install google-chrome-stable
+  become: yes
+
+- name: get Chrome driver
+  get_url:
+    url: "https://chromedriver.storage.googleapis.com/2.35/{{ chromedriver_file }}"
+    dest: "/home/{{ ansible_user }}/"
+
+- name: unarchive Chrome driver
+  unarchive:
+    remote_src: yes
+    src: "/home/{{ ansible_user }}/{{ chromedriver_file }}"
+    dest: "/home/{{ ansible_user }}/"

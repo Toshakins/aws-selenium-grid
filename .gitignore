@@ -10,3 +10,11 @@
 
 JetBrains IDE
 .idea/
+
+# Misc
+ip_address.txt
+
+# Ansible
+provision.retry
+/roles/geerlingguy.pip/
+/roles/geerlingguy.supervisor/

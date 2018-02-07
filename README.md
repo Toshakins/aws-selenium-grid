@@ -1,5 +1,11 @@
 # Selenium with Chrome
 
+## Requirements
+Terraform, Ansible
+
+
+## Instructions
+
 To run, configure your AWS provider as described in 
 
 https://www.terraform.io/docs/providers/aws/index.html
@@ -16,3 +22,5 @@ For example:
 ```
 terraform apply -var 'key_name=terraform' -var 'public_key_path=/Users/jsmith/.ssh/terraform.pub'
 ```
+
+Otherwise, you can configure default `tfvars` and then just `./FIRST_RUN.sh`.

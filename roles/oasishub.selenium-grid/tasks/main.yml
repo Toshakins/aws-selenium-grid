@@ -1,0 +1,10 @@
+---
+- name: get Selenium standalone server
+  get_url:
+    url: "http://selenium-release.storage.googleapis.com/3.8/{{ selenium_server_jar }}"
+    dest: "/home/{{ ansible_user }}/"
+
+- name: install JRE
+  apt:
+    name: openjdk-9-jre
+    state: latest

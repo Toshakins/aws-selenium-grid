@@ -25,10 +25,10 @@ variable "aws_amis" {
   }
 }
 
-variable "security_group" {
-  description = "Security Group to assign to EC2 instance"
-}
-
 variable "subnet_id" {
   description = "Subnet ID to assign to the EC2 instance"
+}
+
+variable "vpc_id" {
+  description = "VPC ID to assisng to the EC2 instance"
 }
