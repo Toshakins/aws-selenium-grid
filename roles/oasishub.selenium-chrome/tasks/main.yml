@@ -29,7 +29,7 @@
 
 - name: get Chrome driver
   get_url:
-    url: "https://chromedriver.storage.googleapis.com/2.35/{{ chromedriver_file }}"
+    url: "https://chromedriver.storage.googleapis.com/{{ chromedriver_version }}/{{ chromedriver_file }}"
     dest: "/home/{{ ansible_user }}/"
 
 - name: unarchive Chrome driver
