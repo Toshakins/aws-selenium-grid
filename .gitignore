@@ -8,7 +8,7 @@
 # .tfvars files
 *.tfvars
 
-JetBrains IDE
+# JetBrains IDE
 .idea/
 
 # Misc
