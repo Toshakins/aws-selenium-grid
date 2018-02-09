@@ -6,5 +6,5 @@
 
 - name: install JRE
   apt:
-    name: openjdk-9-jre
+    name: openjdk-9-jre-headless
     state: latest

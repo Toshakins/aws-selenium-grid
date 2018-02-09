@@ -2,12 +2,13 @@
 - hosts: all
   become: yes
   roles:
-    - {role: "oasishub.selenium-chrome"}
-    - {role: "oasishub.selenium-grid"}
+    - {role: "oasishub.webdriver-chrome"}
+    - {role: "oasishub.selenium-server"}
     - {role: "geerlingguy.supervisor",
       vars: {
         supervisor_programs:
-        [{name: "selenium_server",
+        [
+        {name: "selenium_server",
           command: "java -jar /home/{{ ansible_user }}/{{ selenium_server_jar }} -port 80 -role hub",
           state: present,
           configuration: {
@@ -24,7 +25,7 @@
           }
         },
         {name: "selenium_webdriver",
-         command: "java -Dwebdriver.chrome.driver=/home/{{ ansible_user }}/chromedriver -jar /home/{{ ansible_user }}/{{ selenium_server_jar }} -port 6666 -role node -hub http://localhost:80",
+         command: "java -Dwebdriver.chrome.driver=/home/{{ ansible_user }}/chromedriver -jar /home/{{ ansible_user }}/{{ selenium_server_jar }} -port 6660 -role standalone",
          state: present,
          configuration: {
             autostart=true
