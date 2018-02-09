@@ -40,10 +40,3 @@
     remote_src: yes
     src: "/home/{{ ansible_user }}/{{ chromedriver_file }}"
     dest: "/home/{{ ansible_user }}/"
-
-- name: create run script
-  copy:
-    content: |
-      #!/bin/sh
-      xvfb-run -a /home/{{ ansible_user }}/chromedriver $@
-    dest: "/home/{{ ansible_user }}/start_node.sh"
