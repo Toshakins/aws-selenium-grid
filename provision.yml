@@ -25,7 +25,7 @@
           }
         },
         {name: "selenium_webdriver",
-         command: "java -Dwebdriver.chrome.driver=/home/{{ ansible_user }}/chromedriver -jar /home/{{ ansible_user }}/{{ selenium_server_jar }} -port 6660 -role standalone",
+         command: "java -Dwebdriver.chrome.driver=/home/{{ ansible_user }}/chromedriver -jar /home/{{ ansible_user }}/{{ selenium_server_jar }} -port 6660 -role node -hub http://localhost/grid/register -browser browserName=chrome,version=ANY,maxInstances=10,platform=LINUX -maxSession 10",
          state: present,
          configuration: {
             autostart=true
@@ -41,5 +41,4 @@
          }
         }]
       }
-
     }

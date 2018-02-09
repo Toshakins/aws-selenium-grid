@@ -16,9 +16,6 @@
     name:
     - google-chrome-stable
     - unzip
-    - xvfb
-    - libxi6
-    - libgconf-2-4
     state: latest
   become: yes
 
