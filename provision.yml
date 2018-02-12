@@ -2,14 +2,20 @@
 - hosts: all
   become: yes
   roles:
-    - {role: "toshakins.webdriver-chrome"}
-    - {role: "toshakins.selenium-server"}
+    - {
+      role: "toshakins.webdriver-chrome",
+      become: yes
+    }
+    - {
+      role: "toshakins.selenium-server",
+      become: yes
+    }
     - {role: "geerlingguy.supervisor",
       vars: {
         supervisor_programs:
         [
         {name: "selenium_server",
-          command: "java -jar /home/{{ ansible_user }}/{{ selenium_server_jar }} -port 80 -role hub",
+          command: "java -jar {{ selenium_server_dir }}/{{ selenium_server_jar }} -port 80 -role hub",
           state: present,
           configuration: {
             autostart=true
@@ -25,7 +31,7 @@
           }
         },
         {name: "selenium_webdriver",
-         command: "java -Dwebdriver.chrome.driver=/home/{{ ansible_user }}/chromedriver -jar /home/{{ ansible_user }}/{{ selenium_server_jar }} -port 6660 -role node -hub http://localhost/grid/register -browser browserName=chrome,version=ANY,maxInstances=10,platform=LINUX -maxSession 10",
+         command: "java -Dwebdriver.chrome.driver={{ chromedriver_dir }}/chromedriver -jar {{ selenium_server_dir }}/{{ selenium_server_jar }} -port 6660 -role node -hub http://localhost/grid/register -browser browserName=chrome,version=ANY,maxInstances=10,platform=LINUX -maxSession 10",
          state: present,
          configuration: {
             autostart=true
