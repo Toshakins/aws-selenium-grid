@@ -68,14 +68,7 @@ resource "aws_instance" "selenium" {
   # Our Security group to allow HTTP and SSH access
   vpc_security_group_ids = ["${aws_security_group.selenium.id}"]
 
-  # We're going to launch into the same subnet as our ELB. In a production
-  # environment it's more common to have a separate private subnet for
-  # backend instances.
   subnet_id = "${var.subnet_id}"
-
-  # We run a remote provisioner on the instance after creating it.
-  # In this case, we just install nginx and start it. By default,
-  # this should be on port 80
 
   # install Ansible requirements
   provisioner "remote-exec" {
