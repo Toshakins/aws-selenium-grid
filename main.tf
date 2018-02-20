@@ -8,9 +8,32 @@ resource "aws_key_pair" "selenium" {
   public_key = "${file(var.public_key_path)}"
 }
 
+# Create a VPC to launch our instance into
+resource "aws_vpc" "default" {
+  cidr_block = "10.0.0.0/16"
+}
+
+resource "aws_internet_gateway" "default" {
+  vpc_id = "${aws_vpc.default.id}"
+}
+
+# Grant the VPC internet access on its main route table
+resource "aws_route" "internet_access" {
+  route_table_id         = "${aws_vpc.default.main_route_table_id}"
+  destination_cidr_block = "0.0.0.0/0"
+  gateway_id             = "${aws_internet_gateway.default.id}"
+}
+
+# Create a subnet to launch our instance into
+resource "aws_subnet" "default" {
+  vpc_id                  = "${aws_vpc.default.id}"
+  cidr_block              = "10.0.1.0/24"
+  map_public_ip_on_launch = true
+}
+
 resource "aws_security_group" "selenium" {
   name        = "Selenium Grid"
-  vpc_id      = "${var.vpc_id}"
+  vpc_id      = "${aws_vpc.default.id}"
 
   # HTTP access from anywhere
   ingress {
@@ -37,6 +60,7 @@ resource "aws_security_group" "selenium" {
   }
 }
 
+# Elastic IP for EC2 instance
 resource "aws_eip" "ip" {
   instance = "${aws_instance.selenium.id}"
 }
@@ -68,7 +92,7 @@ resource "aws_instance" "selenium" {
   # Our Security group to allow HTTP and SSH access
   vpc_security_group_ids = ["${aws_security_group.selenium.id}"]
 
-  subnet_id = "${var.subnet_id}"
+  subnet_id = "${aws_subnet.default.id}"
 
   # install Ansible requirements
   provisioner "remote-exec" {

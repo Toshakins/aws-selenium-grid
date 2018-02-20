@@ -24,11 +24,3 @@ variable "aws_amis" {
     "eu-central-1"  = "ami-5055cd3f"
   }
 }
-
-variable "subnet_id" {
-  description = "Subnet ID to assign to the EC2 instance"
-}
-
-variable "vpc_id" {
-  description = "VPC ID to assisng to the EC2 instance"
-}
