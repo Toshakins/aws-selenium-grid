@@ -1,3 +1,5 @@
 ---
+chromedriver_dir: "/opt/chromedriver"
+files_dir: "/opt/files"
 chromedriver_file: "chromedriver_linux64.zip"
 chromedriver_version: "2.35"

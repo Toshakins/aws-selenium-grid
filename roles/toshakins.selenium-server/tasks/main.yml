@@ -1,8 +1,14 @@
 ---
+- name: create folder for selenium server
+  file:
+    path: "{{ selenium_server_dir }}"
+    state: directory
+    mode: "u=rw,g=r,o=r"
+
 - name: get Selenium standalone server
   get_url:
     url: "http://selenium-release.storage.googleapis.com/3.8/{{ selenium_server_jar }}"
-    dest: "/home/{{ ansible_user }}/"
+    dest: "{{ selenium_server_dir }}"
 
 - name: install JRE
   apt:

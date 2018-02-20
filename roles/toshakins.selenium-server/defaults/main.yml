@@ -1,2 +1,3 @@
 ---
+selenium_server_dir: "/opt/selenium_server/"
 selenium_server_jar: "selenium-server-standalone-3.8.1.jar"
