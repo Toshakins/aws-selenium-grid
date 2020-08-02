@@ -6,6 +6,7 @@ connect.
 
 Example: ~/.ssh/terraform.pub
 DESCRIPTION
+
 }
 
 variable "key_name" {
@@ -19,8 +20,8 @@ variable "aws_region" {
 
 # Ubuntu 16.04 LTS (x64)
 variable "aws_amis" {
-  type = "map"
+  type = map(string)
   default = {
-    "eu-central-1"  = "ami-5055cd3f"
+    "eu-central-1" = "ami-5055cd3f"
   }
 }
